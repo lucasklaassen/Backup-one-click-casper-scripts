@@ -31,7 +31,7 @@ if(casper.cli.args.length < 4) {
   var username = casper.cli.get(0);
   var password = casper.cli.get(1);
   var userInputWebsiteName = casper.cli.get(2);
-  var userInputWebsiteURL = casper.cli.get(3)
+  var userInputWebsiteURL = casper.cli.get(3);
 }
 
 //Init Google Analytics//
@@ -47,7 +47,7 @@ casper.start('https://www.google.com/analytics', function() {
 });
 
 casper.then(function() {
-  this.wait(5000, function() {
+  this.wait(3000, function() {
     this.page.injectJs('jquery.js');
    var analyticsMaxName = this.evaluate(function() {
       var analyticsMaxNum = 0;
@@ -68,16 +68,16 @@ casper.then(function() {
     this.wait(3000, function() {
       this.echo(analyticsMaxName);
       this.thenClick('#ID-newKennedyHeader > header > div.ID-headerWidget-tabs._GACPb > a.ID-tab-a._GAKn.ACTION-tab.TARGET-a > div > span', function() {
-        this.wait(4000, function() {
+        this.wait(3000, function() {
           this.click('._GAgU[title="'+ analyticsMaxName +'"]'); 
-          this.wait(5000, function() {
+          this.wait(3000, function() {
             this.waitFor(function check() {
                 return this.evaluate(function() {
                     return document.querySelectorAll('#ID-m-propertyColumn-picker > div.ID-propertyPicker > div > div._GAYTb > div > div._GAdJ.ACTION-add.TARGET-').length === 1;
                 });
             }, function then() {    // step to execute when check() is ok
                 this.click('#ID-m-propertyColumn-picker > div.ID-propertyPicker > div > div._GAYTb > div > div._GAdJ.ACTION-add.TARGET-');
-                this.wait(5000, function() {
+                this.wait(3000, function() {
                   this.echo("Setting up a UA-Tracking code for your website...");
                   this.click('[data-value="FOOD_AND_DRINK"]');
                   this.evaluate(function(userInputWebsiteURL) {
@@ -91,7 +91,7 @@ casper.then(function() {
             }, function timeout() { // step to execute if check has failed
                 this.echo( analyticsMaxName + " has 50 websites. Setting up a fresh one...");
                 this.click('#ID-m-accountColumn-picker > div.ID-accountPicker > div > div._GAYTb > div > div._GAdJ.ACTION-add.TARGET-');
-                this.wait(5000, function() {
+                this.wait(3000, function() {
                   this.click('[data-value="FOOD_AND_DRINK"]');
                   this.evaluate(function(analyticsMaxName,userInputWebsiteURL) {
                     var analyticsNum = analyticsMaxName.replace('Web Analytics ', '');
@@ -101,14 +101,14 @@ casper.then(function() {
                   this.wait(3000, function() {
                     this.click('#ID-m-content > div > div._GAFk > button._GAN._GABc._GAJe');
                   });
-                  this.wait(6000, function() {
+                  this.wait(3000, function() {
                     this.click('body > div._GAfe > div._GAfe-_GAY > div._GATd > input.ACTION-confirmToS.TARGET-._GAy');
                   });
                 });
             });
           });
           this.waitForSelector('#ID-m-content-header > div._GAgmb > div > div._GALRb', function() {
-            this.wait(5000, function() {
+            this.wait(3000, function() {
               var googleAnalyticsUAcode = this.evaluate(function() {
                 var UAcode = $('#ID-m-content-header > div._GAgmb > div > div._GALRb').text();
                 return UAcode;
@@ -161,7 +161,7 @@ casper.then(function() {
                     $('.websiteSettings').contents().find('#iFramePopup').contents().find('form[action="index.cfm?method=websiteSettings.SettingsSuccess"]').submit();
                     $('html').prepend('<div id="analyticsComplete"></div>');
                   }, 2000);
-                }, 5000);
+                }, 3000);
               }, googleAnalyticsUAcode);
               //End Google Analytics//
 
