@@ -27,13 +27,11 @@ if(casper.cli.args.length < 4) {
   var password = consoleRead("Enter password, then hit enter.");
   var userInputWebsiteName = consoleRead("Enter WebsiteID, then hit enter.");
   var userInputWebsiteURL = consoleRead("Enter the Website URL, then hit enter.");
-  // var googleAnalyticsUAcode = consoleRead("Enter Google Analytics UA code, then hit enter.");
 } else {
   var username = casper.cli.get(0);
   var password = casper.cli.get(1);
   var userInputWebsiteName = casper.cli.get(2);
   var userInputWebsiteURL = casper.cli.get(3)
-  // var googleAnalyticsUAcode = casper.cli.get(4);
 }
 
 //Init Google Analytics//
