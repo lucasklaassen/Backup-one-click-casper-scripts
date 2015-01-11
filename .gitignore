@@ -1,0 +1,43 @@
+###
+# system SWAP, TMP and BACKUP files
+###
+*~
+*.swp
+*.bak
+
+###
+# Windows
+###
+Thumbs.db
+
+###
+# Mac OS X directory preferences
+###
+.DS_Store
+._*
+
+###
+# System
+###
+_gsdata_
+blank.gif
+empty.empty
+*.codekit
+assets/captcha/*
+
+###
+# Sublime
+###
+sftp-config.json
+
+###
+# SCSS Files
+###
+.sass-cache/
+
+#AuthFiles
+auth.js
+
+# Images
+*.png
+*.jpg
