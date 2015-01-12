@@ -2,6 +2,7 @@
 var require = patchRequire(require);
 var utils = require('utils');
 var auth = require('./auth');
+var oneClick = require('./oneClick');
 
 exports.login = function() {
 	casper.thenOpen('https://www.vin65.com/components/clientLogin', function() {
@@ -90,4 +91,5 @@ exports.initProductLayouts = function() {
 	    });
 	  });
 	});
+	oneClick.stageComplete('#productLayoutsComplete', 'Product Layouts were initialized!');
 }

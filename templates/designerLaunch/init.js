@@ -2,7 +2,6 @@ var utils = require('utils');
 var GA = require('./GA');
 var vin65 = require('./vin65');
 var oneClick = require('./oneClick');
-var productLayouts = require('./productLayouts');
 var casper = require('casper').create({
   verbose: true,
   logLevel: 'debug',
@@ -40,8 +39,8 @@ if(casper.cli.args.length < 4) {
 casper.start();
 
 //Init Google Analytics//
-// GA.login();
-// GA.initUATrackingCode();
+GA.login();
+GA.initUATrackingCode();
 //End Google Analytics//
 
 vin65.login();
@@ -51,8 +50,6 @@ vin65.validateWebsiteID();
 //Init Product Layout Defaults
 vin65.initProductLayouts();
 //End Product Layout Defaults
-
-oneClick.stageComplete('#productLayoutsComplete', 'Product Layouts were initialized!');
 
 // //Website Settings Pages Array
 // var websiteSettingsPagesArray = ['/settings/index.cfm?method=websiteSettings.EditComponents',
