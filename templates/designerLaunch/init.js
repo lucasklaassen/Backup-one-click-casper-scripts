@@ -141,6 +141,16 @@ casper.wait(1000, function() {
         $('.websiteSettingsFunctions').attr("src", websiteSettingsPagesArray[2]);
       }, websiteSettingsPagesArray);
     });
+    this.wait(1000, function() {
+      this.evaluate(function() {
+        $('.websiteSettingsFunctions').contents().find('input').prop('checked', true);
+      });
+    });
+    this.wait(1000, function() {
+      this.withFrame('websiteSettingsFunctions', function() {
+        this.click('#popupFooterRight > a > img');
+      });
+    });
   });
 });
 
