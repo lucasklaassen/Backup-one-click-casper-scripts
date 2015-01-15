@@ -24,7 +24,7 @@ var consoleRead = function(userMessage) {
 }
 
 //If username and password were not passed in as arg's ask for them now
-if(casper.cli.args.length < 4) {
+if(casper.cli.args.length < 5) {
   var username = consoleRead("Enter username, then hit enter.");
   var password = consoleRead("Enter password, then hit enter.");
   var userInputWebsiteName = consoleRead("Enter Website Name, then hit enter.");
@@ -45,16 +45,16 @@ casper.start();
 // GA.initUATrackingCode();
 //End Google Analytics//
 
-vin65.login();
-vin65.grabWebsiteID();
-vin65.validateWebsiteID();
+// vin65.login();
+// vin65.grabWebsiteID();
+// vin65.validateWebsiteID();
 
 //Init Product Layout Defaults
 // vin65.initProductLayouts();
 //End Product Layout Defaults
 
 //Init Website Settings Functions
-vin65.websiteSettingsFunctions();
+// vin65.websiteSettingsFunctions();
 //End Website Settings Functions
 
 casper.run();

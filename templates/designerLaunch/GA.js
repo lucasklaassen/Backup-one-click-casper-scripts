@@ -24,11 +24,12 @@ exports.initUATrackingCode = function() {
 	    var analyticsMaxName = GA.findGreatestProperty();
 	    this.wait(4000, function() {
 	      this.echo(analyticsMaxName);
-	      this.click('#ID-newKennedyHeader > header > div.ID-headerWidget-tabs._GACPb > a.ID-tab-a._GAKn.ACTION-tab.TARGET-a > div > span');
-	      this.wait(4000, function() {
-	        this.click('._GAgU[title="'+ analyticsMaxName +'"]'); 
-	        GA.isPropertyFull();
-	        GA.initVin65UAcode();
+	      this.thenOpen('https://www.google.com/analytics/web/?hl=en#management/Settings', function() {
+	      	this.wait(4000, function() {
+	      	  this.click('div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > ul > li[title="'+ analyticsMaxName +'"]');
+	      	  GA.isPropertyFull();
+	      	  GA.initVin65UAcode();
+	      	});
 	      });
 	    });
 	  });
@@ -39,7 +40,10 @@ exports.findGreatestProperty = function() {
 	var analyticsMaxName =	casper.evaluate(function() {
 	    var analyticsMaxNum = 0;
 	    var setMaxName = "";
-	    $('._GAaJ').find('._GAyB a').each(function() {
+	    var websiteAnalytics = $("table > tbody > tr > td > div > div > a").filter(function(idx) {
+	       return this.innerHTML.indexOf("Web Analytics") == 0;
+	    });
+	    websiteAnalytics.each(function() {
 	      var analyticsNum = $(this).text().replace('Web Analytics ', '');
 	      if(analyticsNum.length === 1) {
 	        analyticsNum = '0' + analyticsNum;
@@ -57,40 +61,39 @@ exports.findGreatestProperty = function() {
 
 exports.isPropertyFull = function() {
 	casper.wait(4000, function() {
+		this.page.injectJs('jquery.js');
 	  this.waitFor(function check() {
-	      return this.evaluate(function() {
-	          return document.querySelectorAll('#ID-m-propertyColumn-picker > div.ID-propertyPicker > div > div._GAYTb > div > div._GAdJ.ACTION-add.TARGET-').length === 1;
-	      });
+      return !this.exists("[title='Limit reached']");
 	  }, function then() {    // step to execute when check() is ok
-	  		//Property is not full, add site to property
-	      this.click('#ID-m-propertyColumn-picker > div.ID-propertyPicker > div > div._GAYTb > div > div._GAdJ.ACTION-add.TARGET-');
+	  		//Account is not full, add site to new property
+	  		this.clickLabel('Create new property', 'span');
 	      this.wait(4000, function() {
 	        this.echo("Setting up a UA-Tracking code for your website...");
 	        this.click('[data-value="FOOD_AND_DRINK"]');
 	        this.evaluate(function(userInputWebsiteURL) {
-	          $('#ID-m-content > div > div.ID-webParams > div:nth-child(1) > div._GAAY > input').add('#ID-m-content > div > div.ID-webParams > div:nth-child(2) > div._GAAY > div > div > input').val(userInputWebsiteURL);
+	          $('[data-name="webSiteName"]').add('[data-name="defaultUrl"]').val(userInputWebsiteURL);
 	          $('[data-value="FOOD_AND_DRINK"]').trigger('click');
 	        }, userInputWebsiteURL);
 	        this.wait(4000, function() {
-	          this.click('#ID-m-content > div > div._GAFk > button._GAN._GABc._GAJe');
+	          this.click('[data-name="actionFormButton"]');
 	        });
 	      });
 	  }, function timeout() { // step to execute if check has failed
-	  		//Property is full, add a new property and add site to that property
+	  		//Account is full, add a new Account and add site to a new property
 	      this.echo( analyticsMaxName + " has 50 websites. Setting up a fresh one...");
-	      this.click('#ID-m-accountColumn-picker > div.ID-accountPicker > div > div._GAYTb > div > div._GAdJ.ACTION-add.TARGET-');
+	      this.clickLabel('Create new account', 'span');
 	      this.wait(4000, function() {
 	        this.click('[data-value="FOOD_AND_DRINK"]');
 	        this.evaluate(function(analyticsMaxName,userInputWebsiteURL) {
 	          var analyticsNum = analyticsMaxName.replace('Web Analytics ', '');
-	          $('[aria-label="My New Account Name"]').val("Web Analytics " + ++analyticsNum);
-	          $('#ID-m-content > div > div.ID-webParams > div:nth-child(2) > div._GAAY > div > div > input').add('[aria-label="My New Website"]').val(userInputWebsiteURL);
+	          $('[data-name="accountName"]').val("Web Analytics " + ++analyticsNum);
+	          $('[data-name="webSiteName"]').add('[data-name="defaultUrl"]').val(userInputWebsiteURL);
 	        }, analyticsMaxName,userInputWebsiteURL);
 	        this.wait(4000, function() {
-	          this.click('#ID-m-content > div > div._GAFk > button._GAN._GABc._GAJe');
+	          this.click('[data-name="actionFormButton"]');
 	        });
 	        this.wait(4000, function() {
-	          this.click('body > div._GAfe > div._GAfe-_GAY > div._GATd > input.ACTION-confirmToS.TARGET-._GAy');
+	          this.click('.ACTION-confirmToS');
 	        });
 	      });
 	  });
@@ -98,10 +101,10 @@ exports.isPropertyFull = function() {
 }
 
 exports.initVin65UAcode = function() {
-	casper.waitForSelector('#ID-m-content-header > div._GAgmb > div > div._GALRb', function() {
+	casper.waitForSelector('#ID-m-content-header > div > div > div', function() {
 	  this.wait(4000, function() {
 	    var googleAnalyticsUAcode = this.evaluate(function() {
-	      var UAcode = $('#ID-m-content-header > div._GAgmb > div > div._GALRb').text();
+	      var UAcode = $('#ID-m-content-header > div > div > div:eq(1)').text();
 	      return UAcode;
 	    });
 	    this.echo("Tracking Code: " + googleAnalyticsUAcode);
