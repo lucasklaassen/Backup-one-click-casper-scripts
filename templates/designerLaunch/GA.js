@@ -27,7 +27,7 @@ exports.initUATrackingCode = function() {
 	      this.thenOpen('https://www.google.com/analytics/web/?hl=en#management/Settings', function() {
 	      	this.wait(4000, function() {
 	      	  this.click('div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > ul > li[title="'+ analyticsMaxName +'"]');
-	      	  GA.isPropertyFull();
+	      	  GA.isPropertyFull(analyticsMaxName);
 	      	  GA.initVin65UAcode();
 	      	});
 	      });
@@ -59,29 +59,31 @@ exports.findGreatestProperty = function() {
 	return analyticsMaxName
 }
 
-exports.isPropertyFull = function() {
+exports.isPropertyFull = function(analyticsMaxName) {
 	casper.wait(4000, function() {
 		this.page.injectJs('jquery.js');
-	  this.waitFor(function check() {
-      return !this.exists("[title='Limit reached']");
-	  }, function then() {    // step to execute when check() is ok
-	  		//Account is not full, add site to new property
-	  		this.clickLabel('Create new property', 'span');
-	      this.wait(4000, function() {
-	        this.echo("Setting up a UA-Tracking code for your website...");
-	        this.click('[data-value="FOOD_AND_DRINK"]');
-	        this.evaluate(function(userInputWebsiteURL) {
-	          $('[data-name="webSiteName"]').add('[data-name="defaultUrl"]').val(userInputWebsiteURL);
-	          $('[data-value="FOOD_AND_DRINK"]').trigger('click');
-	        }, userInputWebsiteURL);
-	        this.wait(4000, function() {
-	          this.click('[data-name="actionFormButton"]');
-	        });
-	      });
-	  }, function timeout() { // step to execute if check has failed
-	  		//Account is full, add a new Account and add site to a new property
-	      this.echo( analyticsMaxName + " has 50 websites. Setting up a fresh one...");
-	      this.clickLabel('Create new account', 'span');
+		this.waitFor(function check() {
+		    return !this.exists("[title='Limit reached']");
+		}, function then() {    // step to execute when check() is ok
+    		//Account is not full, add site to new property
+    		this.clickLabel('Create new property', 'span');
+        this.wait(4000, function() {
+          this.echo("Setting up a UA-Tracking code for your website...");
+          this.click('[data-value="FOOD_AND_DRINK"]');
+          this.evaluate(function(userInputWebsiteURL) {
+            $('[data-name="webSiteName"]').add('[data-name="defaultUrl"]').val(userInputWebsiteURL);
+            $('[data-value="FOOD_AND_DRINK"]').trigger('click');
+          }, userInputWebsiteURL);
+          this.wait(4000, function() {
+            this.click('[data-name="actionFormButton"]');
+          });
+        });
+		}, function timeout() { // step to execute if check has failed
+		    //Account is full, add a new Account and add site to a new property
+		    this.wait(1000, function() {
+	      	this.echo( analyticsMaxName + " has 50 websites. Setting up a fresh one...");
+		    	this.clickLabel('Create new account', 'span');
+		    });
 	      this.wait(4000, function() {
 	        this.click('[data-value="FOOD_AND_DRINK"]');
 	        this.evaluate(function(analyticsMaxName,userInputWebsiteURL) {
@@ -96,7 +98,7 @@ exports.isPropertyFull = function() {
 	          this.click('.ACTION-confirmToS');
 	        });
 	      });
-	  });
+		});
 	});
 }
 
