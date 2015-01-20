@@ -285,9 +285,9 @@ exports.websiteSettingsFunctions = function() {
         }, websiteSettingsPagesArray);
       });
       this.wait(1000, function() {
-        this.evaluate(function(userInputWebsiteLocation) {
-          $('.websiteSettingsFunctions').contents().find('[name="countryCode"]').val(userInputWebsiteLocation);
-        }, userInputWebsiteLocation);
+        this.evaluate(function(userInputWebsiteCountry) {
+          $('.websiteSettingsFunctions').contents().find('[name="countryCode"]').val(userInputWebsiteCountry);
+        }, userInputWebsiteCountry);
         initSelectOptions();
       });
       this.wait(1000, function() {
