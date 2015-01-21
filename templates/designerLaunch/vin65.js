@@ -8,7 +8,7 @@ exports.login = function() {
 	casper.thenOpen('https://www.vin65.com/components/clientLogin', function() {
 	  this.fill('#loginForm', { ClientU: username, ClientP: password }, true);
 	});
-}
+};
 
 exports.grabWebsiteID = function() {
 	casper.then(function(){
@@ -22,7 +22,7 @@ exports.grabWebsiteID = function() {
 	     }
 	   }
 	  if(!WebsiteID.length) {
-	    this.die("Error: Website not found.")
+	    this.die("Error: Website not found.");
 	  }
 	  var WebsiteID = utils.serialize(WebsiteID);
 	  //Navigate to the website provided by the user
@@ -33,7 +33,7 @@ exports.grabWebsiteID = function() {
 	    $('form[action="/index.cfm?method=login.processWebsitePicker"]').submit();
 	  }, WebsiteID);
 	});
-}
+};
 
 exports.validateWebsiteID = function() {
 	//Check to see if casper navigated to the correct website IMPORTANT
@@ -46,7 +46,7 @@ exports.validateWebsiteID = function() {
 	}, function timeout() { // step to execute if check has failed
 	    this.capture('Fatal-Error-#1.png').echo('Fatal Error #1: Screenshot Captured').exit();
 	});
-}
+};
 
 exports.initGoogleAnalytics = function(googleAnalyticsUAcode) {
 	casper.thenEvaluate(function(googleAnalyticsUAcode) {
@@ -63,7 +63,7 @@ exports.initGoogleAnalytics = function(googleAnalyticsUAcode) {
 	    }, 2000);
 	  }, 3000);
 	}, googleAnalyticsUAcode);
-}
+};
 
 exports.initProductLayouts = function() {
 	casper.waitForSelector('#iFrameWrapper', function() {
@@ -138,6 +138,10 @@ exports.websiteSettingsFunctions = function() {
 	        copyPagesBoolean = true;
 	        return false;
 	      } else if($(this).text() === "IBG Pages Template") {
+	        setWebsiteID($(this).val());
+	        copyPagesBoolean = true;
+	        return false;
+	      } else if($(this).text() === "Generic") {
 	        setWebsiteID($(this).val());
 	        copyPagesBoolean = true;
 	        return false;
@@ -303,4 +307,4 @@ exports.websiteSettingsFunctions = function() {
 		});
 	});
 oneClick.stageComplete('#websiteFunctionsComplete', 'Website Functions were run successfully!');
-}
+};

@@ -9,11 +9,10 @@ var twilio = require('./twilio');
 exports.initTwilio = function() {
 	twilio.login();
 	twilio.buyNumber();
-}
+};
 
 exports.addTwilioNumber = function(SMSNumber) {
 	casper.then(function() {
-		this.capture('1.png');
 		this.evaluate(function() {
 			$('html').prepend('<iframe src="/index.cfm?method=layout.showLayout&go=%2Fsettings%2Findex%2Ecfm%3Fmethod%3Dsettings%2Eframes%26deepLink%3DwebsiteSettings" class="websiteSettings"></iframe>');
 	 		$('html').prepend('<iframe name="wineDirectSettings" class="wineDirectSettings"></iframe>');
@@ -22,21 +21,18 @@ exports.addTwilioNumber = function(SMSNumber) {
 			this.evaluate(function() {
 				$('.wineDirectSettings').attr('src', '/settings/index.cfm?method=websiteSettings.WineDirectSettings');
 			});
-			this.capture('2.png');
 		});
 		this.wait(4000, function() {
 			this.evaluate(function(SMSNumber) {
 				$('.wineDirectSettings').contents().find('[name="fromPhoneNumber"]').val(SMSNumber);
 				$('.wineDirectSettings').contents().find('[name="hasTextMessage"]').attr('checked', true);
 			}, SMSNumber);
-			this.capture('3.png');
 		});
 		this.wait(4000, function() {
 			this.evaluate(function() {
 				$('.wineDirectSettings').contents().find('form[action="index.cfm?method=websiteSettings.WineDirectSettingsSuccess"]').submit();
 				$('html').prepend('<div id="twilioComplete"></div>');
 			});
-			this.capture('4.png');
 		});
 	});
-}
+};

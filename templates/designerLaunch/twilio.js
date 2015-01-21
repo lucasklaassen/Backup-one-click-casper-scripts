@@ -13,7 +13,7 @@ exports.login = function() {
       'password': auth.twilioPass()
     }, true);
 	});
-}
+};
 
 exports.buyNumber = function() {
 	casper.wait(2000, function() {
@@ -24,7 +24,7 @@ exports.buyNumber = function() {
 					this.click('.selectize-dropdown.country > .selectize-dropdown-content > [data-value="'+userInputWebsiteCountry+'"]');
 				});
 				this.wait(1000, function() {
-					this.capture('country.png');
+					console.log('test');
 				});
 			});
 			this.then(function() {
@@ -34,12 +34,15 @@ exports.buyNumber = function() {
 						this.click('.selectize-dropdown.prepend > .selectize-dropdown-content > [data-value="location"]');
 					});
 					this.wait(1000, function() {
-						var searchTerm = userInputWebsiteCity + ", " + userInputWebsiteState;
+						if(userInputWebsiteCity.length){
+							var searchTerm = userInputWebsiteCity + ", " + userInputWebsiteState;						
+						} else {
+							var searchTerm = userInputWebsiteState;
+						}
 						this.fill('[action="/user/account/phone-numbers/search/results"]', {
 							'searchTerm': searchTerm
 						}, true);
 						this.wait(5000, function() {
-							this.capture('error.png');
 							this.click('#numbers-list > tbody > tr:nth-child(1) > td.text-center > a');
 						});
 						this.wait(3000, function() {
@@ -76,4 +79,4 @@ exports.buyNumber = function() {
 			});
 		});
 	});
-}
+};

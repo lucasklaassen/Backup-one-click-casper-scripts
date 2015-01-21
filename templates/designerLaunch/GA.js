@@ -15,7 +15,7 @@ exports.login = function() {
 	    }, true);
 	  });
 	});
-}
+};
 
 exports.initUATrackingCode = function() {
 	casper.then(function() {
@@ -34,7 +34,7 @@ exports.initUATrackingCode = function() {
 	    });
 	  });
 	});
-}
+};
 
 exports.findGreatestProperty = function() {
 	var analyticsMaxName =	casper.evaluate(function() {
@@ -57,7 +57,7 @@ exports.findGreatestProperty = function() {
 	    return setMaxName;
 	  });
 	return analyticsMaxName
-}
+};
 
 exports.isPropertyFull = function(analyticsMaxName) {
 	casper.wait(4000, function() {
@@ -100,7 +100,7 @@ exports.isPropertyFull = function(analyticsMaxName) {
 	      });
 		});
 	});
-}
+};
 
 exports.initVin65UAcode = function() {
 	casper.waitForSelector('#ID-m-content-header > div > div > div', function() {
@@ -117,4 +117,4 @@ exports.initVin65UAcode = function() {
 	    oneClick.stageComplete('#analyticsComplete', 'Google Anayltics were successfully added!');
 	  });
 	});
-}
+};

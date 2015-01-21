@@ -22,7 +22,7 @@ var consoleRead = function(userMessage) {
   system.stdout.writeLine(userMessage);
   var line = system.stdin.readLine();
   return line;
-}
+};
 
 //If username and password were not passed in as arg's ask for them now
 if(casper.cli.args.length < 7 ) {
@@ -45,25 +45,25 @@ if(casper.cli.args.length < 7 ) {
 
 casper.start();
 
-// //Init Google Analytics//
+//Init Google Analytics//
 GA.login();
 GA.initUATrackingCode();
-// //End Google Analytics//
+//End Google Analytics//
 
 vin65.login();
 vin65.grabWebsiteID();
 vin65.validateWebsiteID();
 
-// //Init Product Layout Defaults
+//Init Product Layout Defaults
 vin65.initProductLayouts();
-// //End Product Layout Defaults
+//End Product Layout Defaults
 
-// //Init Website Settings Functions
+//Init Website Settings Functions
 vin65.websiteSettingsFunctions();
-// //End Website Settings Functions
+//End Website Settings Functions
 
 //Init Vin65Plus Setup//
-vin65Plus.initTwilio();
+// vin65Plus.initTwilio();
 //End Vin65Plus Setup//
 
 casper.run();
