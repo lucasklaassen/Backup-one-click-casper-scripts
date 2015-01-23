@@ -81,6 +81,7 @@ exports.initProductLayouts = function() {
 	    this.withFrame('websiteSettingsTwo', function() {
 	      this.evaluate(function() {
 	        $("input[name='productLayouts']").prop('checked', true);
+	        $('input[value="EventTicket"]').prop('checked', true);
 	        $("input[name='listDisplayColumns']").val("ProductTitle");
 	        $("select[name='drilldownDisplay']").val("Custom");
 	        $('form[action="index.cfm?method=websiteSettings.ProductSettingsSuccess"]').submit();
@@ -121,15 +122,23 @@ exports.websiteSettingsFunctions = function() {
 	        setWebsiteID($(this).val());
 	        copyPagesBoolean = true;
 	        return false;
-	      } else if($(this).text() === "Vin65Cloud2 Pages Template") {
+	      } else if($(this).text() === "Vin65 Pages Template Vin65") {
 	        setWebsiteID($(this).val());
 	        copyPagesBoolean = true;
 	        return false;
-	      } else if($(this).text() === "Vin65cloud3 Pages Template") {
+	      } else if($(this).text() === "Vin65 Pages Template Vin65Cloud") {
 	        setWebsiteID($(this).val());
 	        copyPagesBoolean = true;
 	        return false;
-	      } else if($(this).text() === "Vin65Cloud4 Pages Template") {
+	      } else if($(this).text() === "Vin65 Pages Template Vin65Cloud2") {
+	        setWebsiteID($(this).val());
+	        copyPagesBoolean = true;
+	        return false;
+	      } else if($(this).text() === "Vin65 Pages Template Vin65cloud3") {
+	        setWebsiteID($(this).val());
+	        copyPagesBoolean = true;
+	        return false;
+	      } else if($(this).text() === "Vin65 Pages Template Vin65Cloud4") {
 	        setWebsiteID($(this).val());
 	        copyPagesBoolean = true;
 	        return false;
@@ -137,11 +146,7 @@ exports.websiteSettingsFunctions = function() {
 	        setWebsiteID($(this).val());
 	        copyPagesBoolean = true;
 	        return false;
-	      } else if($(this).text() === "IBG Pages Template") {
-	        setWebsiteID($(this).val());
-	        copyPagesBoolean = true;
-	        return false;
-	      } else if($(this).text() === "Generic") {
+	      } else if($(this).text() === "Vin65 Pages Template IBG") {
 	        setWebsiteID($(this).val());
 	        copyPagesBoolean = true;
 	        return false;
@@ -299,7 +304,7 @@ exports.websiteSettingsFunctions = function() {
       });
 	  });
 		this.then(function() {
-			this.wait(10000, function() {
+			this.wait(15000, function() {
 				this.evaluate(function() {
 				  $('html').prepend('<div id="websiteFunctionsComplete"></div>');
 				});

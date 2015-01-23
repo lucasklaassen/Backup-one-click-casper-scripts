@@ -46,8 +46,8 @@ if(casper.cli.args.length < 7 ) {
 casper.start();
 
 //Init Google Analytics//
-GA.login();
-GA.initUATrackingCode();
+// GA.login();
+// GA.initUATrackingCode();
 //End Google Analytics//
 
 vin65.login();
@@ -55,7 +55,7 @@ vin65.grabWebsiteID();
 vin65.validateWebsiteID();
 
 //Init Product Layout Defaults
-vin65.initProductLayouts();
+// vin65.initProductLayouts();
 //End Product Layout Defaults
 
 //Init Website Settings Functions
