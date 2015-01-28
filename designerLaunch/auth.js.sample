@@ -1,0 +1,24 @@
+//All Sensitive Information Stored Here
+var require = patchRequire(require);
+var utils = require('utils');
+
+var GAuser = "EnterGAUsername",
+		GApass = "EnterGAPassword",
+		twilioUser = "EnterTwilioUsername",
+		twilioPass = "EnterTwilioPassword";
+
+exports.GAuser = function() {
+	return utils.format(GAuser);
+};
+
+exports.GApass = function() {
+	return utils.format(GApass);
+};
+
+exports.twilioUser = function() {
+	return utils.format(twilioUser);
+};
+
+exports.twilioPass = function() {
+	return utils.format(twilioPass);
+};
