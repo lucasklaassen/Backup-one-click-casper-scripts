@@ -7,6 +7,10 @@ var GAuser = "EnterGAUsername",
 		twilioUser = "EnterTwilioUsername",
 		twilioPass = "EnterTwilioPassword";
 
+exports.jquerySrc = function() {
+	casper.page.injectJs('path-to-jquery');
+};
+
 exports.GAuser = function() {
 	return utils.format(GAuser);
 };

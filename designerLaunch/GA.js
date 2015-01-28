@@ -20,7 +20,7 @@ exports.login = function() {
 exports.initUATrackingCode = function() {
   casper.then(function() {
     this.wait(4000, function() {
-      this.page.injectJs('./jquery.js');
+      auth.jquerySrc();
       var analyticsMaxName = GA.findGreatestProperty();
       this.wait(4000, function() {
         this.echo(analyticsMaxName);
@@ -61,7 +61,7 @@ exports.findGreatestProperty = function() {
 
 exports.isPropertyFull = function(analyticsMaxName) {
   casper.wait(4000, function() {
-    this.page.injectJs('./jquery.js');
+    this.page.injectJs(auth.jquerySrc());
     this.waitFor(function check() {
         return !this.exists("[title='Limit reached']");
     }, function then() {    // step to execute when check() is ok
