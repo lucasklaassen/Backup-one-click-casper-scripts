@@ -132,8 +132,8 @@ exports.initResourceBundle = function() {
 exports.initParseCustomDrilldown = function() {
   casper.thenEvaluate(function() {
     $('html').prepend('<iframe name="customDrilldown" class="customDrilldown"></iframe>');
-    $('.customDrilldown').css('height', '600px');
-    $('.customDrilldown').css('width', '600px');
+    $('.customDrilldown').css('height', '200px');
+    $('.customDrilldown').css('width', '200px');
   });
   casper.then(function() {
     this.wait(2000, function() {
@@ -144,8 +144,17 @@ exports.initParseCustomDrilldown = function() {
     this.wait(4000, function() {
       this.evaluate(function() {
         $('.customDrilldown').contents().find("#iFramePopup").contents().find("select[name='ProductCustomDrilldown']").val("product-drilldown.htm");
-        $('.customDrilldown').contents().find("form[action='index.cfm?method=designerLaunch.WebsiteSuccess']").submit();
       });
+    });
+    this.wait(1000, function(){
+      this.withFrame('customDrilldown', function() {
+        this.withFrame('EditWindow', function() {
+          this.click("#parseFile");
+        });
+      });
+    });
+    this.wait(3000, function() {
+      this.capture('dl-check.png');
     });
   });
 };
