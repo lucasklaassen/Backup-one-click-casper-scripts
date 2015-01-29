@@ -153,9 +153,6 @@ exports.initParseCustomDrilldown = function() {
         });
       });
     });
-    this.wait(3000, function() {
-      this.capture('dl-check.png');
-    });
   });
 };
 
